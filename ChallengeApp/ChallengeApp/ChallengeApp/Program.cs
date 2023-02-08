@@ -7,13 +7,13 @@ Employee employee0 = new Employee("Angelika", "Nowak", " ,43");
 employee0.AddScore(5);
 employee0.AddScore(6);
 employee0.AddScore(4);
-employee0.AddScore(7);
-employee0.AddScore(6);
+employee0.AddMinusScore(-7);
+employee0.AddMinusScore(-6);
 
 Employee employee1 = new Employee("Tomek", "Malysz", " ,39");
-employee1.AddScore(3);
 employee1.AddScore(6);
-employee1.AddScore(7);
+employee1.AddScore(6);
+employee1.AddScore(9);
 employee1.AddScore(9);
 employee1.AddScore(3);
 
