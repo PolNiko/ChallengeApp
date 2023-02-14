@@ -42,11 +42,11 @@
         }
 
         [Test]
-        public void WhenStringReturnDifferentJobsShouldShowEqual()
+        public void WhenStringReturnDifferentAgesShouldShowEqual()
         {
             // arrange
-            string employee0 = "Journalist";
-            string employee3 = "Programmer";
+            string employee0 = "33";
+            string employee3 = "48";
 
             // act
 
