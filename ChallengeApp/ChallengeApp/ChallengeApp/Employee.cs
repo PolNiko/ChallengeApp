@@ -6,14 +6,46 @@ public class Employee
     {
         this.Name = name;
         this.Lastname = lastname;
-
     }
     public string Name { get; private set; }
     public string Lastname { get; private set; }
 
     public void AddGrade(float grade)
     {
-        this.grades.Add(grade);
+        if (grade >= 0 && grade <= 100)
+        {
+            this.grades.Add(grade);
+        }
+        else
+        {
+            Console.WriteLine("Invalid grade value");
+        }
+    }
+    public void AddGrade(string grade)
+    {
+        if (float.TryParse(grade, out float result))
+        {
+            this.AddGrade(result);
+        }
+        else
+        {
+            Console.WriteLine("String is not float");
+        }
+    }
+    public void AddGrade(double grade)
+    {
+        float result = (float)grade;
+        this.AddGrade(result);
+    }
+    public void AddGrade(decimal grade)
+    {
+        float result = (float)grade;
+        this.AddGrade(result);
+    }
+    public void AddGrade(int grade)
+    {
+        float result = (float)grade;
+        int valueInInt = (int)grade;
     }
     public Statistics GetStatistics()
     {
@@ -21,7 +53,6 @@ public class Employee
         statistics.Average = 0;
         statistics.Max = float.MinValue;
         statistics.Min = float.MaxValue;
-
 
         foreach (var grade in this.grades)
         {
@@ -31,7 +62,6 @@ public class Employee
         }
 
         statistics.Average /= this.grades.Count;
-
         return statistics;
     }
 }
