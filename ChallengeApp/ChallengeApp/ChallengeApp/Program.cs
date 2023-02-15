@@ -11,27 +11,9 @@ employee.AddGrade(6);
 employee.AddGrade(7.26);
 employee.AddGrade(98.99);
 
-var statistics = employee.GetStatisticsWhithForeach();
+var statistics = employee.GetStatistics();
 Console.WriteLine("ForeachLoop: ");
 Console.WriteLine($"{employee.Name} {employee.Lastname} {employee.Age} {employee.Profession}");
-Console.WriteLine($"Average: {statistics.Average}");
-Console.WriteLine($"Min: {statistics.Min}");
-Console.WriteLine($"Max: {statistics.Max}");
-
-statistics = employee.GetStatisticsWhithFor();
-Console.WriteLine("ForLoop: ");
-Console.WriteLine($"Average: {statistics.Average}");
-Console.WriteLine($"Min: {statistics.Min}");
-Console.WriteLine($"Max: {statistics.Max}");
-
-statistics = employee.GetStatisticsWhithDoWhile();
-Console.WriteLine("Do-WhileLoop: ");
-Console.WriteLine($"Average: {statistics.Average}");
-Console.WriteLine($"Min: {statistics.Min}");
-Console.WriteLine($"Max: {statistics.Max}");
-
-statistics = employee.GetStatisticsWhithWhile();
-Console.WriteLine("WhileLoop: ");
 Console.WriteLine($"Average: {statistics.Average}");
 Console.WriteLine($"Min: {statistics.Min}");
 Console.WriteLine($"Max: {statistics.Max}");
