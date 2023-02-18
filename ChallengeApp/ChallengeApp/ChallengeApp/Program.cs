@@ -1,19 +1,24 @@
 ﻿using ChallengeApp;
 using System;
+Console.WriteLine("Welcome To Employees Grades System App");
+Console.WriteLine("======================================");
+Console.WriteLine();
+Console.WriteLine("Score a Employee");
+
+var employee = new Employee();
+while (true)
 {
-    Console.WriteLine("Employees Grades System 0-100");
+    Console.WriteLine("Add next Score for your Employee: ");
+    var input = Console.ReadLine();
+    if(input == "q")
+    {
+        break;
+    }
+    employee.AddGrade(input);
 }
-var employee = new Employee("Niko", " Post", " 30yo", "Programmer");
-employee.AddGrade("Adam");
-employee.AddGrade("4000");
-employee.AddGrade(2);
-employee.AddGrade(6);
-employee.AddGrade(7.26);
-employee.AddGrade(98.99);
 
 var statistics = employee.GetStatistics();
-Console.WriteLine("ForeachLoop: ");
-Console.WriteLine($"{employee.Name} {employee.Lastname} {employee.Age} {employee.Profession}");
+Console.WriteLine($"AvgLetter: {statistics.AverageLetter}");
 Console.WriteLine($"Average: {statistics.Average}");
 Console.WriteLine($"Min: {statistics.Min}");
 Console.WriteLine($"Max: {statistics.Max}");

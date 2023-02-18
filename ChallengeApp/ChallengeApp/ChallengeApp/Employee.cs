@@ -1,10 +1,9 @@
-﻿using System;
-using System.Reflection;
-
-namespace ChallengeApp;
+﻿namespace ChallengeApp;
 public class Employee
 {
     private List<float> grades = new List<float>();
+    public Employee()
+    { }
     public Employee(string name, string lastname, string age, string profession)
     {
         this.Name = name;
@@ -17,7 +16,6 @@ public class Employee
     public string Age { get; private set; }
     public string Profession { get; private set; }
 
-
     public void AddGrade(float grade)
     {
         if (grade >= 0 && grade <= 100)
@@ -27,6 +25,49 @@ public class Employee
         else
         {
             Console.WriteLine("Invalid grade value");
+        }
+    }
+    public void AddGrade(double grade)
+    {
+        float gradesAsFloat = (float)grade;
+        this.AddGrade(gradesAsFloat);
+    }
+    public void AddGrade(int grade)
+    {
+        float gradesAsFloat = (float)grade;
+        this.AddGrade(gradesAsFloat);
+    }
+    public void AddGrade(char grade)
+    {
+        switch (grade)
+        {
+            case 'A':
+            case 'a':
+                this.grades.Add(100);
+                break;
+            case 'B':
+            case 'b':
+                this.grades.Add(80);
+                break;
+            case 'C':
+            case 'c':
+                this.grades.Add(60);
+                break;
+            case 'D':
+            case 'd':
+                this.grades.Add(50);
+                break;
+            case 'E':
+            case 'e':
+                this.grades.Add(40);
+                break;
+            case 'F':
+            case 'f':
+                this.grades.Add(20);
+                break;
+            default:
+                Console.WriteLine("Wrong Letter");
+                break;
         }
     }
     public void AddGrade(string grade)
@@ -39,21 +80,6 @@ public class Employee
         {
             Console.WriteLine("String is not float");
         }
-    }
-    public void AddGrade(double grade)
-    {
-        float result = (float)grade;
-        this.AddGrade(result);
-    }
-    public void AddGrade(decimal grade)
-    {
-        float result = (float)grade;
-        this.AddGrade(result);
-    }
-    public void AddGrade(int grade)
-    {
-        float result = (float)grade;
-        int valueInInt = (int)grade;
     }
     public Statistics GetStatistics()
     {
@@ -68,15 +94,31 @@ public class Employee
             statistics.Min = Math.Min(statistics.Min, grade);
             statistics.Average += grade;
         }
-        if (statistics.Average > 50)
-        {
-            Console.WriteLine("Good");
-        }
-        else
-        {
-            Console.WriteLine("Bad");
-        }
         statistics.Average /= this.grades.Count;
+        switch (statistics.Average)
+        {
+            case var average when average >= 80:
+                statistics.AverageLetter = 'A';
+                break;
+            case var average when average >= 60:
+                statistics.AverageLetter = 'B';
+                break;
+            case var average when average >= 65:
+                statistics.AverageLetter = 'C';
+                break;
+            case var average when average >= 50:
+                statistics.AverageLetter = 'D';
+                break;
+            case var average when average >= 40:
+                statistics.AverageLetter = 'E';
+                break;
+            case var average when average >= 30:
+                statistics.AverageLetter = 'F';
+                break;
+            default:
+                statistics.AverageLetter = 'J';
+                break;
+        }
         return statistics;
     }
 }
