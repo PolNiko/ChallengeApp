@@ -1,15 +1,16 @@
 ﻿namespace ChallengeApp;
 public class Employee
 {
+    private readonly char sex = 'M';
+
     private List<float> grades = new List<float>();
-    public Employee()
-    { }
     public Employee(string name, string lastname, string age, string profession)
     {
         this.Name = name;
         this.Lastname = lastname;
         this.Age = age;
         this.Profession = profession;
+        this.sex = 'K';
     }
     public string Name { get; private set; }
     public string Lastname { get; private set; }
@@ -24,7 +25,7 @@ public class Employee
         }
         else
         {
-            Console.WriteLine("Invalid grade value");
+            throw new Exception("Invalid grade value");
         }
     }
     public void AddGrade(double grade)
@@ -66,8 +67,7 @@ public class Employee
                 this.grades.Add(20);
                 break;
             default:
-                Console.WriteLine("Wrong Letter");
-                break;
+                throw new Exception("Wrong Letter");
         }
     }
     public void AddGrade(string grade)
@@ -78,7 +78,7 @@ public class Employee
         }
         else
         {
-            Console.WriteLine("String is not float");
+            throw new Exception("String is not float");
         }
     }
     public Statistics GetStatistics()

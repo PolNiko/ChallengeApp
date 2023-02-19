@@ -5,7 +5,7 @@ Console.WriteLine("======================================");
 Console.WriteLine();
 Console.WriteLine("Score a Employee");
 
-var employee = new Employee();
+var employee = new Employee("Niko", " Post", " 30yo", "Programmer");
 while (true)
 {
     Console.WriteLine("Add next Score for your Employee: ");
@@ -14,10 +14,23 @@ while (true)
     {
         break;
     }
+
+    try
+    {
+        employee.AddGrade(input);
+    }
+    catch(Exception ex)
+    {
+        Console.WriteLine($"Exception catched: {ex.Message}");
+    }
+    finally
+    {
+        Console.WriteLine("Finally here");
+    }
     employee.AddGrade(input);
 }
-
 var statistics = employee.GetStatistics();
+Console.WriteLine($"{employee.Name} {employee.Lastname} {employee.Age} {employee.Profession} 'M'");
 Console.WriteLine($"AvgLetter: {statistics.AverageLetter}");
 Console.WriteLine($"Average: {statistics.Average}");
 Console.WriteLine($"Min: {statistics.Min}");
