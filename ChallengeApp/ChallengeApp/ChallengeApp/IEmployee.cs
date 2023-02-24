@@ -1,7 +1,8 @@
 ﻿//what?
+using static ChallengeApp.EmployeeBase;
 namespace ChallengeApp
 {
-    public interface IEmployee
+    public interface IEmployee 
     {
         string Name { get; }
         string Lastname { get; }
@@ -12,6 +13,7 @@ namespace ChallengeApp
         void AddGrade(int grade);
         void AddGrade(char grade);
         void AddGrade(string grade);
+        event GradeAddedDelegate GradeAdded;
         Statistics GetStatistics();
     }
 }

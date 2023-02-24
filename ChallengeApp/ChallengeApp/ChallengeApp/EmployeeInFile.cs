@@ -1,83 +1,81 @@
-﻿using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-
-namespace ChallengeApp
+﻿namespace ChallengeApp
 {
     public class EmployeeInFile : EmployeeBase
     {
-        private const string fileName = "grades.txt";
+        private const string fileName = "EmployeeGrades.txt";
+        public override event GradeAddedDelegate GradeAdded;
         public EmployeeInFile(string name, string lastname, string age, string profession) :
             base(name, lastname, age, profession)
         {
         }
-        public object grades { get; private set; }
         public override void AddGrade(float grade)
         {
-            using (var writer = File.AppendText(fileName))
-                if (grade >= 0 && grade <= 100)
+            if (grade >= 0 && grade <= 100)
+            {
+                using (var writer = File.AppendText(fileName))
                 {
                     writer.WriteLine(grade);
                 }
-                else
+                if (GradeAdded != null)
                 {
-                    throw new Exception("Invalid grade value");
+                    GradeAdded(this, new EventArgs());
                 }
+            }
+            else
+            {
+                throw new Exception("Invalid grade value");
+            }
         }
         public override void AddGrade(double grade)
         {
-            float gradesAsFloat = (float)grade;
-            this.AddGrade(gradesAsFloat);
+            var doubleInFloat = (float)grade;
+            this.AddGrade(doubleInFloat);
         }
 
         public override void AddGrade(int grade)
         {
-            float gradesAsFloat = (float)grade;
-            this.AddGrade(gradesAsFloat);
+            var intInFloat = (float)grade;
+            this.AddGrade(intInFloat);
         }
 
         public override void AddGrade(char grade)
-            {
-            switch (grade)
-            {
-                case 'A':
-                case 'a':
-                    this.AddGrade(100);
-                    break;
-                case 'B':
-                case 'b':
-                    this.AddGrade(80);
-                    break;
-                case 'C':
-                case 'c':
-                    this.AddGrade(60);
-                    break;
-                case 'D':
-                case 'd':
-                    this.AddGrade(50);
-                    break;
-                case 'E':
-                case 'e':
-                    this.AddGrade(40);
-                    break;
-                case 'F':
-                case 'f':
-                    this.AddGrade(20);
-                    break;
-                default:
-                    throw new Exception("Wrong Letter");
-            }
+        {
+
         }
         public override void AddGrade(string grade)
         {
-            using (var writer = File.AppendText(fileName))
-                if (float.TryParse(grade, out float result))
+            if (float.TryParse(grade, out float stringInFloat))
+            {
+                this.AddGrade(stringInFloat);
+            }
+            else if (!float.TryParse(grade, out float result))
+            {
+                switch (grade)
                 {
-                    writer.WriteLine(grade);
+                    case "A":
+                    case "a":
+                        this.AddGrade(100);
+                        break;
+                    case "B":
+                    case "b":
+                        this.AddGrade(80);
+                        break;
+                    case "C":
+                    case "c":
+                        this.AddGrade(60);
+                        break;
+                    case "D":
+                    case "d":
+                        this.AddGrade(40);
+                        break;
+                    case "E":
+                    case "e":
+                        this.AddGrade(20);
+                        break;
+                    default:
+                        throw new Exception("Invalid Grade Value");
                 }
-                else
-                {
-                    throw new Exception("String is not float");
-                }
+            }
         }
         public override Statistics GetStatistics()
         {
@@ -116,7 +114,6 @@ namespace ChallengeApp
                 statistics.Min = Math.Min(statistics.Min, grade);
                 statistics.Average += grade;
             }
-
             statistics.Average /= grades.Count;
             switch (statistics.Average)
             {
@@ -143,6 +140,21 @@ namespace ChallengeApp
                     break;
             }
             return statistics;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
     }
 }

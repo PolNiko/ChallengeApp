@@ -2,23 +2,27 @@
 {
     public class EmployeeInMemory : EmployeeBase // : IEmployee
     {
+        public override event GradeAddedDelegate GradeAdded;
         private List<float> grades = new List<float>();
         public EmployeeInMemory(string name, string lastname, string age, string profession)
             : base(name, lastname, age, profession)
         {
-
         }
         public override void AddGrade(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
                 this.grades.Add(grade);
+
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this,new EventArgs());
+                }
             }
             else
             {
                 throw new Exception("Invalid grade value");
             }
-            throw new NotImplementedException();
         }
         public override void AddGrade(double grade)
         {
@@ -62,15 +66,39 @@
                     throw new Exception("Wrong Letter");
             }
         }
-        public override void AddGrade(string grade)
+         public override void AddGrade(string grade)
         {
-            if (float.TryParse(grade, out float result))
+            if (float.TryParse(grade, out float stringInFloat))
             {
-                this.AddGrade(result);
+                this.AddGrade(stringInFloat);
             }
-            else
+            else if (!float.TryParse(grade, out float result))
             {
-                throw new Exception("String is not float");
+                switch (grade)
+                {
+                    case "A":
+                    case "a":
+                        this.AddGrade(100);
+                        break;
+                    case "B":
+                    case "b":
+                        this.AddGrade(80);
+                        break;
+                    case "C":
+                    case "c":
+                        this.AddGrade(60);
+                        break;
+                    case "D":
+                    case "d":
+                        this.AddGrade(40);
+                        break;
+                    case "E":
+                    case "e":
+                        this.AddGrade(20);
+                        break;
+                    default:
+                        throw new Exception("Invalid Grade Value");
+                }
             }
         }
         public override Statistics GetStatistics()
