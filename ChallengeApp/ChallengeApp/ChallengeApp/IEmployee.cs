@@ -2,7 +2,7 @@
 using static ChallengeApp.EmployeeBase;
 namespace ChallengeApp
 {
-    public interface IEmployee 
+    public interface IEmployee
     {
         string Name { get; }
         string Lastname { get; }

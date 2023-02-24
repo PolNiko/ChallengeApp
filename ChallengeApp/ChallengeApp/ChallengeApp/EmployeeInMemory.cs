@@ -105,7 +105,7 @@
         {
             var statistics = new Statistics();
 
-            foreach (var grade in this.grades)
+            foreach (var grade in grades)
             {
                 statistics.AddGrade(grade);
             }

@@ -2,11 +2,10 @@
 {
     public class EmployeeInFile : EmployeeBase
     {
-        private const string fileName = "EmployeeGrades.txt";
+        private const string fileName = "EmpGrades.txt";
 
         public override event GradeAddedDelegate GradeAdded;
 
-        private List<float> grades = new List<float>();
         public EmployeeInFile(string name, string lastname, string age, string profession) :
             base(name, lastname, age, profession)
         {
@@ -40,38 +39,35 @@
             var intInFloat = (float)grade;
             this.AddGrade(intInFloat);
         }
-
         public override void AddGrade(char grade)
         {
-            switch (grade)
-            {
-                case 'A':
-                case 'a':
-                    this.grades.Add(100);
-                    break;
-                case 'B':
-                case 'b':
-                    this.grades.Add(80);
-                    break;
-                case 'C':
-                case 'c':
-                    this.grades.Add(60);
-                    break;
-                case 'D':
-                case 'd':
-                    this.grades.Add(50);
-                    break;
-                case 'E':
-                case 'e':
-                    this.grades.Add(40);
-                    break;
-                case 'F':
-                case 'f':
-                    this.grades.Add(20);
-                    break;
-                default:
-                    throw new Exception("Wrong Letter");
-            }
+            using (var writer = File.AppendText(fileName))
+
+                switch (grade)
+                {
+                    case 'A':
+                    case 'a':
+                        writer.WriteLine(100);
+                        break;
+                    case 'B':
+                    case 'b':
+                        writer.WriteLine(80);
+                        break;
+                    case 'C':
+                    case 'c':
+                        writer.WriteLine(60);
+                        break;
+                    case 'D':
+                    case 'd':
+                        writer.WriteLine(40);
+                        break;
+                    case 'E':
+                    case 'e':
+                        writer.WriteLine(20);
+                        break;
+                    default:
+                        throw new Exception("Wrong letter");
+                }
         }
         public override void AddGrade(string grade)
         {
@@ -111,8 +107,8 @@
         public override Statistics GetStatistics()
         {
             var gradesFromFile = this.ReadGradesFromFile();
-            var statistics = this.CountStatistics(gradesFromFile);
-            return statistics;
+            var result = this.CountStatistics(gradesFromFile);
+            return result;
         }
         private List<float> ReadGradesFromFile()
         {
@@ -132,30 +128,16 @@
             }
             return grades;
         }
+
         private Statistics CountStatistics(List<float> grades)
         {
             var statistics = new Statistics();
-
-            EmployeeInFile employeeInFile = this;
-            foreach (var grade in this.grades)
+            foreach (var grade in grades)
             {
                 statistics.AddGrade(grade);
             }
             return statistics;
-        }
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
         }
     }
 }
