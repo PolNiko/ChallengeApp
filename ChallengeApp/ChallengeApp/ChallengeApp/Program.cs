@@ -5,7 +5,7 @@ Console.WriteLine("Welcome To Employees Grades System App");
 Console.WriteLine("======================================");
 Console.WriteLine();
 Console.WriteLine("And now add Score for your Employee: ");
-var employee = new EmployeeInMemory("Niko", " Post", "30yo", "Programmer");
+var employee = new EmployeeInFile("Niko", " Post", "30yo", "Programmer");
 employee.GradeAdded += EmployeeGradeAdded;
 void EmployeeGradeAdded(object sender, EventArgs args)
 {
@@ -32,7 +32,9 @@ while (true)
 var statistics = employee.GetStatistics();
 Console.WriteLine();
 Console.WriteLine($"{employee.Name} {employee.Lastname} {employee.Age} {employee.Profession}");
-Console.WriteLine($"AvgLetter: {statistics.AverageLetter}");
-Console.WriteLine($"Average: {statistics.Average}");
+Console.WriteLine($"Sum: {statistics.Sum}");
 Console.WriteLine($"Min: {statistics.Min}");
 Console.WriteLine($"Max: {statistics.Max}");
+Console.WriteLine($"Average: {statistics.Average}");
+Console.WriteLine($"AvgLetter: {statistics.AverageLetter}");
+Console.WriteLine($"CountOfGrades: {statistics.Count}");
